@@ -40,9 +40,7 @@ template.innerHTML = `
   </style>
   <div id="container">
     <h1>TextBuddy - Demo</h1>
-    <div>
-      Words: <span id="words">0</span>
-    </div>
+    <div></div>
     <textarea></textarea>
   </div>
 `
@@ -53,6 +51,7 @@ customElements.define('textbuddy-demo',
    */
   class extends HTMLElement {
     #textArea
+    #container
 
     /**
      * Create an instance of Textbuddy-demo.
@@ -63,8 +62,12 @@ customElements.define('textbuddy-demo',
         .appendChild(template.content.cloneNode(true))
 
       this.#textArea = this.shadowRoot.querySelector('textarea')
+      this.#container = this.shadowRoot.querySelector('#container')
 
+      this.#textArea.addEventListener('keydown', (event) => this.#analyse(event))
       this.#textArea.addEventListener('keyup', (event) => this.#analyse(event))
+
+      this.#analyse()
     }
 
     connectedCallback () {
@@ -72,8 +75,18 @@ customElements.define('textbuddy-demo',
     }
 
     #analyse (event) {
-      const buddy = new TextBuddy(this.#textArea.value)
-      this.shadowRoot.querySelector('#words').textContent = buddy.getWordCount()
+      const text = new TextBuddy(this.#textArea.value)
+      const result = text.getFullAnalyzis()
+
+      let displayArea = this.shadowRoot.querySelector('#container div')
+      let div = document.createElement('div')
+
+      for (const [key, value] of Object.entries(result)) {
+        let p = document.createElement('p')
+        p.textContent = key + ': ' + value
+        div.appendChild(p)
+      }
+      this.#container.replaceChild(div, displayArea)
     }
   }
 )
