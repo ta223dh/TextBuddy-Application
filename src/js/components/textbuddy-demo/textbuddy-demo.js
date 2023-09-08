@@ -3,45 +3,57 @@ import TextBuddy from 'textbuddy'
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
-    #container {
-      height: 100%;
+    #app {
+      background-color: pink;
       width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    #container {
+      width: 100%;
+      height: calc(100% - 115px);
       box-sizing: border-box;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
     }
     textarea {
-      box-shadow: inset 0px 2px 1px 0px lightgray;
+      border-radius: 5px;
       font-size: 1.2rem;
       border: none;
       resize: none;
       outline: none;
-      vertical-align:top;
-      flex-grow: 2;
       padding: 20px;
+      margin: 20px;
+      box-sizing: border-box;
+
     }
     #container.div, textarea, h1 {
       width: 100%;
       box-sizing: border-box;
     }
     #container div {
-      padding: 20px;
-      margin: 20px;
-      border: 2px solid white;
-      box-shadow: 0px 2px 1px 0px black;
+      margin: 0px 20px;
+      box-sizing: border-box;
+      overflow: hidden;
+      width: 500px;
 
     }
     h1 {
+      height: 40px;
       text-align: center;
       color: black;
       text-shadow: white 2px 2px;
-      margin-top: 40px;
+      margin-top: 50px;
     }
   </style>
+  <div id=app>
+      <h1>TextBuddy - Live Demo</h1>
   <div id="container">
-    <h1>TextBuddy - Demo</h1>
-    <div></div>
     <textarea></textarea>
+    <div></div>
+
+  </div>
   </div>
 `
 
