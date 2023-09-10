@@ -94,9 +94,27 @@ customElements.define('textbuddy-demo',
       let div = document.createElement('div')
 
       for (const [key, value] of Object.entries(result)) {
-        let p = document.createElement('p')
-        p.textContent = key + ': ' + value
-        div.appendChild(p)
+        if (key === 'Word frequency') {
+
+          let p = document.createElement('p')
+          p.textContent = key + ' top #3: '
+          div.appendChild(p)
+
+          let i = 0
+
+          for (const [word, frequency] of Object.entries(result[key])) {
+            i++
+            let p = document.createElement('p')
+            p.textContent = `- ${word}: ${frequency}`
+            div.appendChild(p)
+            if (i === 3)
+            break
+          }
+        } else {
+          let p = document.createElement('p')
+          p.textContent = key + ': ' + value
+          div.appendChild(p)
+        }
       }
       this.#container.replaceChild(div, displayArea)
     }
