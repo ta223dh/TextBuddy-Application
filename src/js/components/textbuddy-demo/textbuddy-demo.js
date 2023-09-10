@@ -88,7 +88,7 @@ customElements.define('textbuddy-demo',
 
     #analyse (event) {
       const text = new TextBuddy(this.#textArea.value)
-      const result = text.getFullAnalyzis()
+      const result = text.fullAnalyzis()
 
       let displayArea = this.shadowRoot.querySelector('#container div')
       let div = document.createElement('div')
