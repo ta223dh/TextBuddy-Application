@@ -17,7 +17,7 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "textbuddy": "^0.1.1"
+    "textbuddy": "^0.1.2"
   },
   "devDependencies": {
     "vite": "^4.4.9"
