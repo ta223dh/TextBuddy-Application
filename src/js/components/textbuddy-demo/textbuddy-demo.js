@@ -1,3 +1,4 @@
+import './components/tb-chat'
 import TextBuddy from 'textbuddy'
 
 const template = document.createElement('template')
@@ -55,6 +56,7 @@ template.innerHTML = `
 
   </div>
   </div>
+  <tb-chat></tb-chat>
 `
 
 customElements.define('textbuddy-demo',
