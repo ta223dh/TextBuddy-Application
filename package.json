@@ -1,7 +1,7 @@
 {
-  "name": "textbuddy-demo",
+  "name": "textbuddy",
   "version": "1.0.0",
-  "description": "A demo site for the JavaScript module TextBuddy",
+  "description": "TextBuddy is a desktop web-app for analysing text.",
   "type": "module",
   "scripts": {
     "dev": "vite",
