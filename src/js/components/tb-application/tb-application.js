@@ -50,7 +50,7 @@ template.innerHTML = `
     }
   </style>
   <div id=app>
-      <h1>TextBuddy - Test Auto Deploy</h1>
+      <h1>TextBuddy - Test Auto Deploy 2</h1>
   <div id="container">
     <textarea></textarea>
     <div></div>
