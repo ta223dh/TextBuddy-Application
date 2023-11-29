@@ -185,7 +185,12 @@ customElements.define('tb-application',
           }
         } else {
           let p = document.createElement('p')
-          p.textContent = key + ': ' + value
+          if (key === 'Average word length') {
+            p.textContent = key + ': ' + value.toFixed(1)
+          } else {
+            p.textContent = key + ': ' + value
+          }
+
           div.appendChild(p)
         }
       }
