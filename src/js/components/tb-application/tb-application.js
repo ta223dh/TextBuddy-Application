@@ -49,7 +49,7 @@ template.innerHTML = `
     }
   </style>
   <div id=app>
-      <h1>TextBuddy Application</h1>
+      <h1>TextBuddy</h1>
   <div id="container">
     <textarea></textarea>
     <div></div>
