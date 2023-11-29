@@ -10,6 +10,7 @@ template.innerHTML = `
       height: 100%;
       box-sizing: border-box;
       overflow: hidden;
+      z-index: 1;
     }
     #container {
       width: 100%;
@@ -53,10 +54,11 @@ template.innerHTML = `
   <div id="container">
     <textarea></textarea>
     <div></div>
+    <tb-chat></tb-chat>
 
   </div>
+
   </div>
-  <tb-chat></tb-chat>
 `
 
 customElements.define('tb-application',
