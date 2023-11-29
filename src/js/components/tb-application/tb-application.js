@@ -49,7 +49,7 @@ template.innerHTML = `
     }
   </style>
   <div id=app>
-      <h1>TextBuddy - Live Demo</h1>
+      <h1>TextBuddy Application</h1>
   <div id="container">
     <textarea></textarea>
     <div></div>
@@ -59,16 +59,16 @@ template.innerHTML = `
   <tb-chat></tb-chat>
 `
 
-customElements.define('textbuddy-demo',
+customElements.define('tb-application',
   /**
-   * Textbuddy-demo.
+   * TextBuddy application.
    */
   class extends HTMLElement {
     #textArea
     #container
 
     /**
-     * Create an instance of Textbuddy-demo.
+     * Create an instance of TextBuddy application.
      */
     constructor () {
       super()

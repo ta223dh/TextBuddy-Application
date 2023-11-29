@@ -1,1 +1,1 @@
-import './components/textbuddy-demo/index.js'
+import './components/tb-application/index.js'
