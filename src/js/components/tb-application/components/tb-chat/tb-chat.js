@@ -1,5 +1,3 @@
-import './components/tb-onboaring'
-
 const template = document.createElement('template')
 template.innerHTML = `
   <style>
@@ -115,6 +113,7 @@ customElements.define('tb-chat',
         this.#answer = this.shadowRoot.querySelector('#answer')
 
         this.#button.addEventListener('click', (event) => this.startAiChat(event))  
+        this.#textarea.addEventListener('keydown', (event) => this.textAreaKeyPress(event))  
     }
 
     static get observedAttributes() {
@@ -130,6 +129,14 @@ customElements.define('tb-chat',
       }
     }
 
+    textAreaKeyPress (event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault()
+        this.startAiChat()
+      }
+    }
+
+
     startAiChat (event) {
       if (this.#ApiKey == null) {
         this.#ApiKey = this.#textarea.value
@@ -138,7 +145,6 @@ customElements.define('tb-chat',
           bubbles: true,
         });
         this.dispatchEvent(customEvent);
-        console.log('SEND!!')
         this.#textarea.placeholder = 'Enter a question...'
         this.#textarea.value = '';
       } else {

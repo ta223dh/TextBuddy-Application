@@ -134,7 +134,6 @@ customElements.define('tb-application',
 
       this.#aside.addEventListener('apiKey', (event) => {
         this.#apiKey = event.detail
-        console.log(`Received event: ${event.detail}`);
         this.#textBuddy.setOpenAiApiKey(event.detail)
       });
 
@@ -144,11 +143,9 @@ customElements.define('tb-application',
           let answer = await this.#textBuddy.aiAnswerQuestion(event.detail);
           this.#tbchat.setAttribute('answer', answer);
         } catch (error) {
-          console.log(error)
           this.#tbchat.setAttribute('error', error.message);
 
         }
-        console.log(`Received event: ${event.detail}`);
       });
 
       this.#analyse()
