@@ -91,7 +91,7 @@ template.innerHTML = `
         <textarea id="text"></textarea>
       </main>
       <aside>
-        <div id="data-display"><div></div></div>
+        <div id="dataContainer"><div></div></div>
         <tb-chat></tb-chat>
       <aside>
   </main>
@@ -119,7 +119,7 @@ customElements.define('tb-application',
         .appendChild(template.content.cloneNode(true))
 
       this.#textArea = this.shadowRoot.querySelector('textarea')
-      this.#dataContainer = this.shadowRoot.querySelector('#data-display')
+      this.#dataContainer = this.shadowRoot.querySelector('#dataContainer')
       this.#tbchat = this.shadowRoot.querySelector('tb-chat')
       this.#aside = this.shadowRoot.querySelector('aside')
 
