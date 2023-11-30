@@ -25,5 +25,13 @@ Does your next assignment have a minimum word length? Use TextBuddy to make sure
 - Supports the power of OpenAi's API with an OpenAi APi key.
 - Textbuddy is powered by the the [textbuddy javascript module](https://github.com/ta223dh/TextBuddy) and aims to always use the latest version of the module.
 
-## Test report
-<Link>
+## Roadmap
+You can find the planned development and development in progress in the issue list. The list is open for anyone to add feature suggestions or bugs.
+
+See [Issues](https://github.com/ta223dh/TextBuddy-Application/issues)
+
+## Test reports
+See [test reports](testrapport.md)
+
+## Version history
+See [version history](https://github.com/ta223dh/TextBuddy-Application/releases/)
