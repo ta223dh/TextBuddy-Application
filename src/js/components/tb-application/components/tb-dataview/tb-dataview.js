@@ -13,11 +13,11 @@ template.innerHTML = `
 
 customElements.define('tb-dataview',
   /**
-   * tb-chat.
+   * tb-dataview.
    */
   class extends HTMLElement {
     /**
-     * Create an instance of tb-chat.
+     * Create an instance of tb-dataview.
      */
     constructor () {
       super()
