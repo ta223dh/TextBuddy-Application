@@ -45,3 +45,5 @@ To get started:
 - `npm install` to set up the project
 - `npm run dev` to run on localhost
 - `code .` to open the project in your code editor
+- Check lint issues: `npm run lint`
+- Automatically fix lint issues (if possible): `npm run lint:fix`

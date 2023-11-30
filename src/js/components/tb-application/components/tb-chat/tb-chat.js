@@ -107,28 +107,44 @@ customElements.define('tb-chat',
       this.attachShadow({ mode: 'open' })
         .appendChild(template.content.cloneNode(true))
 
-        this.#textarea = this.shadowRoot.querySelector('textarea')
-        this.#button = this.shadowRoot.querySelector('button')
-        this.#question = this.shadowRoot.querySelector('#question')
-        this.#answer = this.shadowRoot.querySelector('#answer')
+      this.#textarea = this.shadowRoot.querySelector('textarea')
+      this.#button = this.shadowRoot.querySelector('button')
+      this.#question = this.shadowRoot.querySelector('#question')
+      this.#answer = this.shadowRoot.querySelector('#answer')
 
-        this.#button.addEventListener('click', (event) => this.startAiChat(event))  
-        this.#textarea.addEventListener('keydown', (event) => this.textAreaKeyPress(event))  
+      this.#button.addEventListener('click', (event) => this.startAiChat(event))
+      this.#textarea.addEventListener('keydown', (event) => this.textAreaKeyPress(event))
     }
 
-    static get observedAttributes() {
-      return ['answer', 'error'];
+    /**
+     * Observed attributes from the TextBuddy module Ai-features.
+     *
+     * @returns {Array} An array with the attributes to observe.
+     */
+    static get observedAttributes () {
+      return ['answer', 'error']
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
+    /**
+     * Callback for when observed attributes are changed.
+     *
+     * @param {any} name - the name of the attribute
+     * @param {any} oldValue - the old valute of the attribute
+     * @param {any} newValue - the new value of the attribute
+     */
+    attributeChangedCallback (name, oldValue, newValue) {
       if (name === 'answer' && newValue !== oldValue) {
-        this.#answer.textContent = 'Answer: ' + newValue;
-      }
-      else if (name === 'error') {
-        this.#answer.textContent = 'Answer: ' + newValue;
+        this.#answer.textContent = 'Answer: ' + newValue
+      } else if (name === 'error') {
+        this.#answer.textContent = 'Answer: ' + newValue
       }
     }
 
+    /**
+     * Handle keypresses in the Ai-sections textarea.
+     *
+     * @param {Event} event - the event that was triggered
+     */
     textAreaKeyPress (event) {
       if (event.key === 'Enter' && !event.shiftKey) {
         event.preventDefault()
@@ -136,25 +152,29 @@ customElements.define('tb-chat',
       }
     }
 
-
+    /**
+     * Handle actions in the Ai chat.
+     *
+     * @param {Event} event - the event that was triggered
+     */
     startAiChat (event) {
       if (this.#ApiKey == null) {
         this.#ApiKey = this.#textarea.value
         const customEvent = new CustomEvent('apiKey', {
           detail: this.#ApiKey,
-          bubbles: true,
-        });
-        this.dispatchEvent(customEvent);
+          bubbles: true
+        })
+        this.dispatchEvent(customEvent)
         this.#textarea.placeholder = 'Enter a question...'
-        this.#textarea.value = '';
+        this.#textarea.value = ''
       } else {
         const customEvent = new CustomEvent('question', {
           detail: this.#textarea.value,
-          bubbles: true,
-        });
+          bubbles: true
+        })
         this.#question.textContent = 'Question: ' + this.#textarea.value
-        this.dispatchEvent(customEvent);
-        this.#textarea.value = '';
+        this.dispatchEvent(customEvent)
+        this.#textarea.value = ''
         this.#answer.textContent = 'Answer: '
       }
     }

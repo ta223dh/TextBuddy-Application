@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,8 @@
     "textbuddy": "^0.1.11"
   },
   "devDependencies": {
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "@lnu/eslint-config": "^1.1.10"
   },
   "bugs": {
     "url": "https://github.com/ta223dh/TextBuddy-Demo/issues"

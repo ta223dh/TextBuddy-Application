@@ -125,36 +125,40 @@ customElements.define('tb-application',
       this.#dataDisplay = this.shadowRoot.querySelector('#data-display')
       this.#tbchat = this.shadowRoot.querySelector('tb-chat')
 
-
       this.#textArea.addEventListener('keydown', (event) => this.#analyse(event))
       this.#textArea.addEventListener('keyup', (event) => this.#analyse(event))
-
 
       this.#aside = this.shadowRoot.querySelector('aside')
 
       this.#aside.addEventListener('apiKey', (event) => {
         this.#apiKey = event.detail
         this.#textBuddy.setOpenAiApiKey(event.detail)
-      });
+      })
 
       this.#aside.addEventListener('question', async (event) => {
-
         try {
-          let answer = await this.#textBuddy.aiAnswerQuestion(event.detail);
-          this.#tbchat.setAttribute('answer', answer);
+          const answer = await this.#textBuddy.aiAnswerQuestion(event.detail)
+          this.#tbchat.setAttribute('answer', answer)
         } catch (error) {
-          this.#tbchat.setAttribute('error', error.message);
-
+          this.#tbchat.setAttribute('error', error.message)
         }
-      });
+      })
 
       this.#analyse()
     }
 
+    /**
+     * Focus on the text area on load.
+     */
     connectedCallback () {
       this.#textArea.focus()
     }
 
+    /**
+     * Run fullAnalyzis on the text and display the result.
+     *
+     * @param {Event} event - the event that triggered the analyzis
+     */
     #analyse (event) {
       this.#textBuddy = new TextBuddy(this.#textArea.value)
       if (this.#apiKey !== null) {
@@ -162,14 +166,13 @@ customElements.define('tb-application',
       }
       const result = this.#textBuddy.fullAnalyzis()
 
-      let displayArea = this.#dataDisplay.querySelector('div')
-      displayArea.style.background = "red"
-      let div = document.createElement('div')
+      const displayArea = this.#dataDisplay.querySelector('div')
+      displayArea.style.background = 'red'
+      const div = document.createElement('div')
 
       for (const [key, value] of Object.entries(result)) {
         if (key === 'Word frequency') {
-
-          let p = document.createElement('p')
+          const p = document.createElement('p')
           p.textContent = key + ' top #3: '
           div.appendChild(p)
 
@@ -177,14 +180,13 @@ customElements.define('tb-application',
 
           for (const [word, frequency] of Object.entries(result[key])) {
             i++
-            let p = document.createElement('p')
+            const p = document.createElement('p')
             p.textContent = `- ${word}: ${frequency}`
             div.appendChild(p)
-            if (i === 3)
-            break
+            if (i === 3) { break }
           }
         } else {
-          let p = document.createElement('p')
+          const p = document.createElement('p')
           if (key === 'Average word length') {
             p.textContent = key + ': ' + value.toFixed(1) + ' characters'
           } else {
