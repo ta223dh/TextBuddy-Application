@@ -91,7 +91,7 @@ template.innerHTML = `
         <textarea id="text"></textarea>
       </main>
       <aside>
-        <div id="dataContainer"><div></div></div>
+        <div id="dataContainer"><div>hej</div></div>
         <tb-chat></tb-chat>
       <aside>
   </main>
