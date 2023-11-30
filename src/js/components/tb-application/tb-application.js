@@ -1,4 +1,5 @@
 import './components/tb-chat'
+import './components/tb-dataview'
 
 import TextBuddy from 'textbuddy'
 
@@ -66,12 +67,6 @@ template.innerHTML = `
       margin-top: 50px;
     }
 
-    #dataContainer p {
-      margin: 0px;
-      padding: 0px;
-      line-height: 20px;
-    }
-
     #dataContainer  {
       display: flex;
       box-sizing: border-box;
@@ -91,7 +86,7 @@ template.innerHTML = `
         <textarea id="text"></textarea>
       </main>
       <aside>
-        <div id="dataContainer"><div></div></div>
+        <div id="dataContainer"><tb-dataview></tb-dataview></div>
         <tb-chat></tb-chat>
       <aside>
   </main>
@@ -104,11 +99,11 @@ customElements.define('tb-application',
    */
   class extends HTMLElement {
     #textArea
-    #dataContainer
     #aside
     #apiKey
     #textBuddy
     #tbchat
+    #dataView
 
     /**
      * Create an instance of TextBuddy application.
@@ -119,28 +114,40 @@ customElements.define('tb-application',
         .appendChild(template.content.cloneNode(true))
 
       this.#textArea = this.shadowRoot.querySelector('textarea')
-      this.#dataContainer = this.shadowRoot.querySelector('#dataContainer')
+      this.#dataView = this.shadowRoot.querySelector('tb-dataview')
       this.#tbchat = this.shadowRoot.querySelector('tb-chat')
       this.#aside = this.shadowRoot.querySelector('aside')
 
-      this.#textArea.addEventListener('keydown', (event) => this.#analyse(event))
-      this.#textArea.addEventListener('keyup', (event) => this.#analyse(event))
-
-      this.#aside.addEventListener('apiKey', (event) => {
-        this.#apiKey = event.detail
-        this.#textBuddy.setOpenAiApiKey(event.detail)
-      })
-
-      this.#aside.addEventListener('question', async (event) => {
-        try {
-          const answer = await this.#textBuddy.aiAnswerQuestion(event.detail)
-          this.#tbchat.setAttribute('answer', answer)
-        } catch (error) {
-          this.#tbchat.setAttribute('error', error.message)
-        }
-      })
+      this.#textArea.addEventListener('keydown', (Event) => this.#analyse(Event))
+      this.#textArea.addEventListener('keyup', (Event) => this.#analyse(Event))
+      this.#aside.addEventListener('apiKey', (Event) => this.#addApiKey(Event))
+      this.#aside.addEventListener('question', (Event) => this.#submitQuestion(Event))
 
       this.#analyse()
+    }
+
+    /**
+     * Submit Ai question.
+     *
+     * @param {Event} Event - the event that triggered the method call
+     */
+    async #submitQuestion (Event) {
+      try {
+        const answer = await this.#textBuddy.aiAnswerQuestion(Event.detail)
+        this.#tbchat.setAttribute('answer', answer)
+      } catch (error) {
+        this.#tbchat.setAttribute('error', error.message)
+      }
+    }
+
+    /**
+     * Add Api Key.
+     *
+     * @param {Event} Event - the event that triggered the method call
+     */
+    #addApiKey (Event) {
+      this.#apiKey = Event.detail
+      this.#textBuddy.setOpenAiApiKey(Event.detail)
     }
 
     /**
@@ -153,45 +160,26 @@ customElements.define('tb-application',
     /**
      * Run fullAnalyzis on the text and display the result.
      *
-     * @param {Event} event - the event that triggered the analyzis
+     * @param {Event} Event - the event that triggered the analyzis
      */
-    #analyse (event) {
+    #analyse (Event) {
       this.#textBuddy = new TextBuddy(this.#textArea.value)
+
       if (this.#apiKey !== null) {
         this.#textBuddy.setOpenAiApiKey(this.#apiKey)
       }
       const fullAnalyzisResult = this.#textBuddy.fullAnalyzis()
 
-      const dataViewToBeReplacted = this.#dataContainer.querySelector('div')
-      const dataView = document.createElement('div')
+      this.#updateDataView(fullAnalyzisResult)
+    }
 
-      for (const [key, value] of Object.entries(fullAnalyzisResult)) {
-        if (key === 'Word frequency') {
-          const dataRow = document.createElement('p')
-          dataRow.textContent = key + ' top #3: '
-          dataView.appendChild(dataRow)
-
-          let i = 0
-
-          for (const [word, frequency] of Object.entries(fullAnalyzisResult[key])) {
-            i++
-            const dataRow = document.createElement('p')
-            dataRow.textContent = `- ${word}: ${frequency}`
-            dataView.appendChild(dataRow)
-            if (i === 3) { break }
-          }
-        } else {
-          const dataRow = document.createElement('p')
-          if (key === 'Average word length') {
-            dataRow.textContent = key + ': ' + value.toFixed(1) + ' characters'
-          } else {
-            dataRow.textContent = key + ': ' + value
-          }
-
-          dataView.appendChild(dataRow)
-        }
-      }
-      this.#dataContainer.replaceChild(dataView, dataViewToBeReplacted)
+    /**
+     * Display the data.
+     *
+     * @param {Object} data - The data object.
+     */
+    #updateDataView (data) {
+      this.#dataView.display(data)
     }
   }
 )
