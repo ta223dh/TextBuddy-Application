@@ -15,8 +15,7 @@ template.innerHTML = `
       box-sizing: border-box;
       width: 100%;
       display: flex;
-  flex-direction: column;
-
+      flex-direction: column;
     }
   
     h1 {
@@ -26,18 +25,14 @@ template.innerHTML = `
     #messages {
       overflow-y: auto; 
       padding: 20px;
-
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-
-
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: left;
     }
 
     #question, #answer {
       padding-bottom: 20px;
-
     }
 
     textarea {
@@ -51,21 +46,18 @@ template.innerHTML = `
       box-sizing: border-box;
       height: 50px;
       flex: 1;
-
     }
 
-  #input {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-}
+    #input {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
 
     button {
       border-radius: 5px;
-
       padding: 10px;
       margin: 10px;
-
       box-sizing: border-box;
       height: 50px;
     }
@@ -73,18 +65,17 @@ template.innerHTML = `
     button:hover {
       cursor: pointer;
     }
-
-
   </style>
 
   <div id="container">
-  <div id="messages">
-  <div id="question">Question:</div>
-  <div id="answer">Answer:</div>
-  </div>
-  <div id="input">
-  <textarea placeholder="Enter OpenAi API key..."></textarea><button>Send</button>
-  </div>
+    <div id="messages">
+      <div id="question">Question:</div>
+      <div id="answer">Answer:</div>
+    </div>
+    <div id="input">
+      <textarea placeholder="Enter OpenAi API key..."></textarea>
+      <button>Send</button>
+    </div>
   </div>
 `
 

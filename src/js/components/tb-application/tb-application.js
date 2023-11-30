@@ -10,7 +10,7 @@ template.innerHTML = `
       height: 100%;
       width: 100%;
       padding: 20px;
-    box-sizing: border-box;
+      box-sizing: border-box;
     }
 
     tb-chat {
@@ -18,6 +18,7 @@ template.innerHTML = `
       display: flex;
       height: 100%;
     }
+
     #text {
       border-radius: 5px;
       font-size: 1.2rem;
@@ -33,9 +34,7 @@ template.innerHTML = `
     #content {
       height: 100%;
       width: 100%;
-
       box-sizing: border-box;
-
       display: flex;
       flex-direction: row;
     }
@@ -81,20 +80,18 @@ template.innerHTML = `
       background-color: lightpink;
       color: black;
       border-radius: 5px;
-
     }
   </style>
   <div id=app>
     <div id="content">
       <main>
-      <header>
-      <h1>TextBuddy</h1>
-    </header>
-
+        <header>
+          <h1>TextBuddy</h1>
+        </header>
         <textarea id="text"></textarea>
       </main>
       <aside>
-        <div id="data-display"><div>hej</div></div>
+        <div id="data-display"><div></div></div>
         <tb-chat></tb-chat>
       <aside>
   </main>
@@ -107,7 +104,7 @@ customElements.define('tb-application',
    */
   class extends HTMLElement {
     #textArea
-    #dataDisplay
+    #dataContainer
     #aside
     #apiKey
     #textBuddy
@@ -122,13 +119,12 @@ customElements.define('tb-application',
         .appendChild(template.content.cloneNode(true))
 
       this.#textArea = this.shadowRoot.querySelector('textarea')
-      this.#dataDisplay = this.shadowRoot.querySelector('#data-display')
+      this.#dataContainer = this.shadowRoot.querySelector('#data-display')
       this.#tbchat = this.shadowRoot.querySelector('tb-chat')
+      this.#aside = this.shadowRoot.querySelector('aside')
 
       this.#textArea.addEventListener('keydown', (event) => this.#analyse(event))
       this.#textArea.addEventListener('keyup', (event) => this.#analyse(event))
-
-      this.#aside = this.shadowRoot.querySelector('aside')
 
       this.#aside.addEventListener('apiKey', (event) => {
         this.#apiKey = event.detail
@@ -164,39 +160,38 @@ customElements.define('tb-application',
       if (this.#apiKey !== null) {
         this.#textBuddy.setOpenAiApiKey(this.#apiKey)
       }
-      const result = this.#textBuddy.fullAnalyzis()
+      const fullAnalyzisResult = this.#textBuddy.fullAnalyzis()
 
-      const displayArea = this.#dataDisplay.querySelector('div')
-      displayArea.style.background = 'red'
-      const div = document.createElement('div')
+      const dataViewToBeReplacted = this.#dataContainer.querySelector('div')
+      const dataView = document.createElement('div')
 
-      for (const [key, value] of Object.entries(result)) {
+      for (const [key, value] of Object.entries(fullAnalyzisResult)) {
         if (key === 'Word frequency') {
-          const p = document.createElement('p')
-          p.textContent = key + ' top #3: '
-          div.appendChild(p)
+          const dataRow = document.createElement('p')
+          dataRow.textContent = key + ' top #3: '
+          dataView.appendChild(dataRow)
 
           let i = 0
 
-          for (const [word, frequency] of Object.entries(result[key])) {
+          for (const [word, frequency] of Object.entries(fullAnalyzisResult[key])) {
             i++
-            const p = document.createElement('p')
-            p.textContent = `- ${word}: ${frequency}`
-            div.appendChild(p)
+            const dataRow = document.createElement('p')
+            dataRow.textContent = `- ${word}: ${frequency}`
+            dataView.appendChild(dataRow)
             if (i === 3) { break }
           }
         } else {
-          const p = document.createElement('p')
+          const dataRow = document.createElement('p')
           if (key === 'Average word length') {
-            p.textContent = key + ': ' + value.toFixed(1) + ' characters'
+            dataRow.textContent = key + ': ' + value.toFixed(1) + ' characters'
           } else {
-            p.textContent = key + ': ' + value
+            dataRow.textContent = key + ': ' + value
           }
 
-          div.appendChild(p)
+          dataView.appendChild(dataRow)
         }
       }
-      this.#dataDisplay.replaceChild(div, displayArea)
+      this.#dataContainer.replaceChild(dataView, dataViewToBeReplacted)
     }
   }
 )
