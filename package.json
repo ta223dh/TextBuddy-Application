@@ -1,6 +1,6 @@
 {
   "name": "textbuddy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TextBuddy is a desktop web-app for analysing text.",
   "type": "module",
   "scripts": {
@@ -17,7 +17,7 @@
   "license": "MIT",
   "private": "true",
   "dependencies": {
-    "textbuddy": "^0.1.10"
+    "textbuddy": "^0.1.11"
   },
   "devDependencies": {
     "vite": "^4.4.9"
