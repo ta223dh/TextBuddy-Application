@@ -35,3 +35,13 @@ See [test reports](testrapport.md)
 
 ## Version history
 See [version history](https://github.com/ta223dh/TextBuddy-Application/releases/)
+
+## For developers
+Feel free to clone and contribute to the project, or integrate the code into your own solution.
+
+To get started:
+- `git clone` the project repo to your local folder
+- `cd TextBuddy-Application` to navigage into the folder
+- `npm install` to set up the project
+- `npm run dev` to run on localhost
+- `code .` to open the project in your code editor
