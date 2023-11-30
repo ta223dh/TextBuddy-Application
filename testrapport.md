@@ -21,7 +21,7 @@ Table of contents
 8 Unique word count | ✅
 9 Longest word | ✅
 10 Average word length | ✅
-11 Estimated reading | ✅
+11 Estimated reading time in minutes | ✅
 12 Supports the power of OpenAi's API with an OpenAi APi key | ✅
 13 Textbuddy data is powered by the latest textbuddy javascript module | ❌
 
