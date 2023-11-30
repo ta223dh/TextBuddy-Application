@@ -186,7 +186,7 @@ customElements.define('tb-application',
         } else {
           let p = document.createElement('p')
           if (key === 'Average word length') {
-            p.textContent = key + ': ' + value.toFixed(1)
+            p.textContent = key + ': ' + value.toFixed(1) + ' characters'
           } else {
             p.textContent = key + ': ' + value
           }
