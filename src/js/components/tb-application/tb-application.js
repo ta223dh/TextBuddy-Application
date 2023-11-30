@@ -59,7 +59,6 @@ template.innerHTML = `
     
     h1 {
       box-sizing: border-box;
-
       height: 40px;
       text-align: center;
       color: black;
@@ -67,12 +66,13 @@ template.innerHTML = `
       margin-top: 50px;
     }
 
-    #data-display p {
+    #dataContainer p {
       margin: 0px;
       padding: 0px;
       line-height: 20px;
     }
-    #data-display  {
+
+    #dataContainer  {
       display: flex;
       box-sizing: border-box;
       padding: 20px;
@@ -91,7 +91,7 @@ template.innerHTML = `
         <textarea id="text"></textarea>
       </main>
       <aside>
-        <div id="dataContainer"><div>hej</div></div>
+        <div id="dataContainer"><div></div></div>
         <tb-chat></tb-chat>
       <aside>
   </main>
